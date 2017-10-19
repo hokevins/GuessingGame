@@ -1,3 +1,5 @@
+// JavaScript Code:
+
 function Game() {
 	this.playersGuess = null;
 	this.pastGuesses = [];
@@ -75,3 +77,26 @@ function shuffle(arr) {
 	}
 	return arr;
 }
+
+// jQuery Code:
+
+function guess(game) {
+	var input = +$('#player-input').val();
+	$('#player-input').val('');
+	var output = game.playersGuessSubmission(input);
+	console.log(output);
+}
+
+$(document).ready(function() {
+	var currentGame = new Game;
+	
+	$('#submit').on('click', function(){
+		guess(currentGame);
+	});
+	
+	$('#player-input').keypress(function(event) {
+		if (event.which === 13) {
+			guess(currentGame);
+		}
+	});
+});

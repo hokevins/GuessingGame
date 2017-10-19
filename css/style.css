@@ -57,7 +57,7 @@ img {
 }
 
 body {
-    background-image: url('binary.jpg');
+    background-image: url('../img/binary.jpg');
 }
 
 #app {
