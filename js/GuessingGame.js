@@ -1,4 +1,4 @@
-// JavaScript Code:
+// JavaScript:
 
 function Game() {
 	this.playersGuess = null;
@@ -78,14 +78,7 @@ function shuffle(arr) {
 	return arr;
 }
 
-// jQuery Code:
-
-function guess(game) {
-	var input = +$('#player-input').val();
-	$('#player-input').val('');
-	var output = game.playersGuessSubmission(input);
-	console.log(output);
-}
+// jQuery:
 
 $(document).ready(function() {
 	var currentGame = new Game;
@@ -95,8 +88,43 @@ $(document).ready(function() {
 	});
 	
 	$('#player-input').keypress(function(event) {
-		if (event.which === 13) {
+		if (event.which === 13)
 			guess(currentGame);
-		}
+	});
+
+	$('#reset').on('click', function(){
+		currentGame = newGame();
+		$('h1').text('Play the Guessing Game');
+    $('h3').text('Guess a number between 1-100.');
+    $('#player-input').val('');
+    $('.guess').text('-');
+		$('#submit, #hint, #player-input').prop('disabled', false);
+	});
+
+	$('#hint').on('click', function(){
+		$('h1').text(currentGame.provideHint());
+		$('h3').text('One of those might be the droids you\'re looking for.');
 	});
 });
+
+function guess(currentGame) {
+	var input = +$('#player-input').val();
+	$('#player-input').val('');
+	var output = currentGame.playersGuessSubmission(input);
+	
+	if (output === 'You have already guessed that number.') {
+		$('h1').text(output);
+	} else if (output === 'You Win!' || output === 'You Lose.') {
+		$('#guess-list li:nth-child('+currentGame.pastGuesses.length+')').text(input);
+		$('h1').text(output);
+		$('h3').text('Click Reset to play again.');
+		$('#submit, #hint, #player-input').prop('disabled', true);
+	} else {
+		$('#guess-list li:nth-child('+currentGame.pastGuesses.length+')').text(input);
+		$('h1').text(output);
+		if (currentGame.isLower())
+			$('h3').text('Try higher');
+		else
+			$('h3').text('Try lower');
+	}
+}
