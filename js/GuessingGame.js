@@ -95,9 +95,9 @@ $(document).ready(function() {
 	$('#reset').on('click', function(){
 		currentGame = newGame();
 		$('h1').text('Play the Guessing Game');
-    $('h3').text('Guess a number between 1-100.');
-    $('#player-input').val('');
-    $('.guess').text('-');
+		$('h3').text('Guess a number between 1-100.');
+		$('#player-input').val('');
+		$('.guess').text('-');
 		$('#submit, #hint, #player-input').prop('disabled', false);
 	});
 
